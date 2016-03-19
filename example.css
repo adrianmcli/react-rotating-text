@@ -53,3 +53,6 @@ label {
   font-style: italic;
   color: #999;
 }
+.display-text {
+  font-size: 48px;
+}

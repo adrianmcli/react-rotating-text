@@ -11,7 +11,7 @@ var App = React.createClass({
 	render: function render() {
 		return React.createElement(
 			'div',
-			null,
+			{ className: 'display-text' },
 			React.createElement(ReactRotatingText, null)
 		);
 	}
