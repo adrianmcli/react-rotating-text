@@ -62,19 +62,33 @@ Don't forget to put in vendor prefixes should you need them. A full example is a
 
 ### Properties
 
-**items (*array*)** (*default: ['first', 'second', 'third']*) - The array of strings to be cycled through.
+**items (*array*)**  
+*(default: ['first', 'second', 'third'])*  
+The array of strings to be cycled through.
 
-**color (*string*)** (*default: 'inherit'*) - This specifies the color of the text.
+**color (*string*)**  
+*(default: 'inherit')*  
+This specifies the color of the text.
 
-**cursor (*boolean*)** (*default: true*) - If set to true, it will display the cursor after the text.
+**cursor (*boolean*)**  
+*(default: true)*  
+If set to true, it will display the cursor after the text.
 
-**pause (*integer*)** (*default: 1500*) - The number of milliseconds to pause after the text has just finished being typed out.
+**pause (*integer*)**  
+*(default: 1500)*  
+The number of milliseconds to pause after the text has just finished being typed out.
 
-**emptyPause (*integer*)** (*default: 1000*) - The number of milliseconds to pause while no text is being displayed (i.e. after deleting has just finished).
+**emptyPause (*integer*)**  
+*(default: 1000)*  
+The number of milliseconds to pause while no text is being displayed (i.e. after deleting has just finished).
 
-**typingInterval (*integer*)** (*default: 50*) - The number of milliseconds between each typing action.
+**typingInterval (*integer*)**  
+*(default: 50)*  
+The number of milliseconds between each typing action.
 
-**deletingInterval (*integer*)** (*default: 50*) - The number of milliseconds between each deleting action.
+**deletingInterval (*integer*)**  
+*(default: 50)*  
+The number of milliseconds between each deleting action.
 
 ### Notes
 
