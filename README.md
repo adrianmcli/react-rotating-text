@@ -1,6 +1,6 @@
 # react-rotating-text
 
-__COMPONENT DESCRIPTION GOES HERE__
+A simple component to create a typewriter effect where words are typed out and then deleted. A list of words is swapped in after each cycle. See the live demo below for a better understanding.
 
 
 ## Demo & Examples
@@ -30,21 +30,55 @@ npm install react-rotating-text --save
 
 ## Usage
 
-__EXPLAIN USAGE HERE__
+Simply pass in an array of strings into the `items` prop:
 
-```
+```jsx
 var ReactRotatingText = require('react-rotating-text');
 
-<ReactRotatingText>Example</ReactRotatingText>
+<ReactRotatingText items={['first', 'second', 'third']} />
 ```
+
+In order to have a blinking cursor, you'll need to apply some CSS to the `react-rotating-text-cursor` class:
+
+```css
+.react-rotating-text-cursor {
+  animation: blinking-cursor 0.8s cubic-bezier(0.68, 0.01, 0.01, 0.99) 0s infinite;
+}
+
+@keyframes blinking-cursor {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+```
+
+Don't forget to put in vendor prefixes should you need them. A full example is available in `example/dist/ReactRotatingText.css`.
 
 ### Properties
 
-* __DOCUMENT PROPERTIES HERE__
+**items (*array*)** (*default: ['first', 'second', 'third']*) - The array of strings to be cycled through.
+
+**color (*string*)** (*default: 'inherit'*) - This specifies the color of the text.
+
+**cursor (*boolean*)** (*default: true*) - If set to true, it will display the cursor after the text.
+
+**pause (*integer*)** (*default: 1500*) - The number of milliseconds to pause after the text has just finished being typed out.
+
+**emptyPause (*integer*)** (*default: 1000*) - The number of milliseconds to pause while no text is being displayed (i.e. after deleting has just finished).
+
+**typingInterval (*integer*)** (*default: 50*) - The number of milliseconds between each typing action.
+
+**deletingInterval (*integer*)** (*default: 50*) - The number of milliseconds between each deleting action.
 
 ### Notes
 
-__ADDITIONAL USAGE NOTES__
+Enhancements and pull requests are welcomed.
 
 
 ## Development (`src`, `lib` and the build process)
@@ -55,7 +89,24 @@ To build, watch and serve the examples (which will also watch the component sour
 
 ## License
 
-__PUT LICENSE HERE__
+The MIT License (MIT)
 
 Copyright (c) 2016 Adrian Li.
 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -5,7 +5,7 @@ var ReactRotatingText = require('react-rotating-text');
 var App = React.createClass({
 	render () {
 		return (
-			<div>
+			<div className="display-text">
 				<ReactRotatingText />
 			</div>
 		);
