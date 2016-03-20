@@ -1,6 +1,8 @@
 # react-rotating-text
 
-A simple component to create a typewriter effect where words are typed out and then deleted. A list of words is swapped in after each cycle. See the live demo below for a better understanding.
+![effect showcase](http://i.imgur.com/AC5g7KD.gif)
+
+A simple component to create a typewriter effect where words are typed out and then deleted. A list of words is swapped in after each cycle.
 
 
 ## Demo & Examples
