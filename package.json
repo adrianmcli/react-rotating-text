@@ -1,6 +1,6 @@
 {
   "name": "react-rotating-text",
-  "version": "1.0.333",
+  "version": "1.0.4",
   "description": "A simple react component to display an array of words/sentences with a typewriter effect.",
   "main": "lib/ReactRotatingText.js",
   "author": "Adrian Li",

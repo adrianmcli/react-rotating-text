@@ -2,7 +2,7 @@
 
 ![effect showcase](http://i.imgur.com/AC5g7KD.gif)
 
-A simple component to create a typewriter effect where words are typed out and then deleted. A list of words is swapped in after each cycle.
+A simple component to create a typewriter effect where strings are typed out and then deleted. Simply pass in an array of strings and the component will rotate through all of them.
 
 
 ## Demo & Examples
