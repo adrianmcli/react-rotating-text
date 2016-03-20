@@ -8,10 +8,21 @@ class ReactRotatingText extends React.Component {
       index: 0,
       output: '',
     };
+    this.timeouts = [];
   }
 
   componentDidMount() {
-    this._animate.bind(this)();   // begin the animation
+    this._animate.bind(this)();   // begin the animation loop
+  }
+
+  componentWillUnmount() {
+    this.timeouts.map(x => clearTimeout(x));  // stop all the loops
+  }
+
+  _loop(loopingFunc, pause) {
+    // save the timeouts so we can stop on unmount
+    const timeout = setTimeout(loopingFunc, pause);
+    this.timeouts.push(timeout);
   }
 
   _type(text, callback) {
@@ -24,7 +35,7 @@ class ReactRotatingText extends React.Component {
     
     // if we're still not done, recursively loop again
     if (output.length < text.length) {
-      setTimeout(loopingFunc, typingInterval);
+      this._loop(loopingFunc, typingInterval);
     } else {
       callback();
     }
@@ -40,7 +51,7 @@ class ReactRotatingText extends React.Component {
     
     // if we're still not done, recursively loop again
     if (output.length !== 0) {
-      setTimeout(loopingFunc, deletingInterval);
+      this._loop(loopingFunc, deletingInterval);
     } else {
       callback();
     }
@@ -57,11 +68,11 @@ class ReactRotatingText extends React.Component {
       this.setState({
         index: index === items.length - 1 ? 0 : index + 1
       });
-      setTimeout(loopingFunc, emptyPause);
+      this._loop(loopingFunc, emptyPause);
     };
     
     type.bind(this)(items[index], () => {
-      setTimeout(erase.bind(this,nextWord), pause);
+      this._loop(erase.bind(this,nextWord), pause);
     });
   };
 

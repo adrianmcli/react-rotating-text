@@ -39,6 +39,9 @@ var ReactRotatingText = (function (_React$Component) {
       this._animate.bind(this)(); // begin the animation
     }
   }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {}
+  }, {
     key: '_type',
     value: function _type(text, callback) {
       var output = this.state.output;
@@ -93,7 +96,7 @@ var ReactRotatingText = (function (_React$Component) {
         _this.setState({
           index: index === items.length - 1 ? 0 : index + 1
         });
-        setTimeout(loopingFunc, emptyPause);
+        if (_this) setTimeout(loopingFunc, emptyPause);
       };
 
       type.bind(this)(items[index], function () {
