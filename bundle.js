@@ -30,12 +30,27 @@ var ReactRotatingText = (function (_React$Component) {
       index: 0,
       output: ''
     };
+    this.timeouts = [];
   }
 
   _createClass(ReactRotatingText, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this._animate.bind(this)(); // begin the animation
+      this._animate.bind(this)(); // begin the animation loop
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.timeouts.map(function (x) {
+        return clearTimeout(x);
+      }); // stop all the loops
+    }
+  }, {
+    key: '_loop',
+    value: function _loop(loopingFunc, pause) {
+      // save the timeouts so we can stop on unmount
+      var timeout = setTimeout(loopingFunc, pause);
+      this.timeouts.push(timeout);
     }
   }, {
     key: '_type',
@@ -50,7 +65,7 @@ var ReactRotatingText = (function (_React$Component) {
 
       // if we're still not done, recursively loop again
       if (output.length < text.length) {
-        setTimeout(loopingFunc, typingInterval);
+        this._loop(loopingFunc, typingInterval);
       } else {
         callback();
       }
@@ -68,7 +83,7 @@ var ReactRotatingText = (function (_React$Component) {
 
       // if we're still not done, recursively loop again
       if (output.length !== 0) {
-        setTimeout(loopingFunc, deletingInterval);
+        this._loop(loopingFunc, deletingInterval);
       } else {
         callback();
       }
@@ -92,11 +107,11 @@ var ReactRotatingText = (function (_React$Component) {
         _this.setState({
           index: index === items.length - 1 ? 0 : index + 1
         });
-        setTimeout(loopingFunc, emptyPause);
+        _this._loop(loopingFunc, emptyPause);
       };
 
       type.bind(this)(items[index], function () {
-        setTimeout(erase.bind(_this, nextWord), pause);
+        _this._loop(erase.bind(_this, nextWord), pause);
       });
     }
   }, {
