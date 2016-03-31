@@ -23,6 +23,13 @@ class ReactRotatingText extends React.Component {
     // save the timeouts so we can stop on unmount
     const timeout = setTimeout(loopingFunc, pause);
     this.timeouts.push(timeout);
+    
+    // prevent memory leak
+    const maxTimeouts = 100;
+    if (this.timeouts.length > maxTimeouts) {
+      clearTimeout(this.timeouts[0]);
+      this.timeouts.shift();
+    }
   }
 
   _type(text, callback) {
@@ -72,7 +79,7 @@ class ReactRotatingText extends React.Component {
     };
     
     type.bind(this)(items[index], () => {
-      this._loop(erase.bind(this,nextWord), pause);
+      this._loop(erase.bind(this, nextWord), pause);
     });
   };
 
