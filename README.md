@@ -7,7 +7,7 @@ A simple component to create a typewriter effect where strings are typed out and
 
 ## Demo & Examples
 
-Live demo: [adrianmc.github.io/react-rotating-text](http://adrianmc.github.io/react-rotating-text/)
+Live demo: [adrianmcli.github.io/react-rotating-text](http://adrianmcli.github.io/react-rotating-text/)
 
 To build the examples locally, run:
 
