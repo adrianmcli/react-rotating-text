@@ -23,7 +23,7 @@ class ReactRotatingText extends React.Component {
     // save the timeouts so we can stop on unmount
     const timeout = setTimeout(loopingFunc, pause);
     this.timeouts.push(timeout);
-    
+
     // prevent memory leak
     const maxTimeouts = 100;
     if (this.timeouts.length > maxTimeouts) {
@@ -36,10 +36,10 @@ class ReactRotatingText extends React.Component {
     const { output } = this.state;
     const { typingInterval } = this.props;
     const loopingFunc = this._type.bind(this, text, callback);
-    
+
     // set the string one character longer
     this.setState({output: text.substr(0, output.length + 1)});
-    
+
     // if we're still not done, recursively loop again
     if (output.length < text.length) {
       this._loop(loopingFunc, typingInterval);
@@ -52,10 +52,10 @@ class ReactRotatingText extends React.Component {
     const { output } = this.state;
     const { deletingInterval } = this.props;
     const loopingFunc = this._erase.bind(this, callback);
-    
+
     // set the string one character shorter
     this.setState({output: output.substr(0, output.length - 1)});
-    
+
     // if we're still not done, recursively loop again
     if (output.length !== 0) {
       this._loop(loopingFunc, deletingInterval);
@@ -77,16 +77,26 @@ class ReactRotatingText extends React.Component {
       });
       this._loop(loopingFunc, emptyPause);
     };
-    
+
     type.bind(this)(items[index], () => {
       this._loop(erase.bind(this, nextWord), pause);
     });
   };
 
   render() {
-    const { color, cursor, ...other } = this.props;
+    const {
+      color,
+      cursor,
+      deletingInterval, 
+      emptyPause,
+      items,
+      pause,
+      typingInterval,
+      ...other
+    } = this.props;
+
     return (
-      <span style={{color: color}} {...other}>
+      <span style={{ color }} {...other}>
         { this.state.output }
         { cursor ? <span className="react-rotating-text-cursor">|</span> : null }
       </span>
