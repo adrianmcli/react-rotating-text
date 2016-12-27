@@ -1,4 +1,4 @@
-var React = require('react');
+import React from 'react';
 
 class ReactRotatingText extends React.Component {
 
@@ -12,14 +12,14 @@ class ReactRotatingText extends React.Component {
   }
 
   componentDidMount() {
-    this._animate.bind(this)();   // begin the animation loop
+    this.animate.bind(this)();   // begin the animation loop
   }
 
   componentWillUnmount() {
     this.timeouts.map(x => clearTimeout(x));  // stop all the loops
   }
 
-  _loop(loopingFunc, pause) {
+  loop(loopingFunc, pause) {
     // save the timeouts so we can stop on unmount
     const timeout = setTimeout(loopingFunc, pause);
     this.timeouts.push(timeout);
@@ -32,66 +32,61 @@ class ReactRotatingText extends React.Component {
     }
   }
 
-  _type(text, callback) {
+  type(text, callback) {
     const { output } = this.state;
     const { typingInterval } = this.props;
-    const loopingFunc = this._type.bind(this, text, callback);
+    const loopingFunc = this.type.bind(this, text, callback);
 
     // set the string one character longer
-    this.setState({output: text.substr(0, output.length + 1)});
+    this.setState({ output: text.substr(0, output.length + 1) });
 
     // if we're still not done, recursively loop again
     if (output.length < text.length) {
-      this._loop(loopingFunc, typingInterval);
+      this.loop(loopingFunc, typingInterval);
     } else {
       callback();
     }
   }
 
-  _erase(callback) {
+  erase(callback) {
     const { output } = this.state;
     const { deletingInterval } = this.props;
-    const loopingFunc = this._erase.bind(this, callback);
+    const loopingFunc = this.erase.bind(this, callback);
 
     // set the string one character shorter
-    this.setState({output: output.substr(0, output.length - 1)});
+    this.setState({ output: output.substr(0, output.length - 1) });
 
     // if we're still not done, recursively loop again
     if (output.length !== 0) {
-      this._loop(loopingFunc, deletingInterval);
+      this.loop(loopingFunc, deletingInterval);
     } else {
       callback();
     }
-  };
+  }
 
-  _animate() {
+  animate() {
     const { index } = this.state;
     const { items, pause, emptyPause } = this.props;
-    const type = this._type;
-    const erase = this._erase;
-    const loopingFunc = this._animate.bind(this);
+    const type = this.type;
+    const erase = this.erase;
+    const loopingFunc = this.animate.bind(this);
 
     const nextWord = () => {
       this.setState({
-        index: index === items.length - 1 ? 0 : index + 1
+        index: index === items.length - 1 ? 0 : index + 1,
       });
-      this._loop(loopingFunc, emptyPause);
+      this.loop(loopingFunc, emptyPause);
     };
 
     type.bind(this)(items[index], () => {
-      this._loop(erase.bind(this, nextWord), pause);
+      this.loop(erase.bind(this, nextWord), pause);
     });
-  };
+  }
 
   render() {
     const {
       color,
       cursor,
-      deletingInterval, 
-      emptyPause,
-      items,
-      pause,
-      typingInterval,
       ...other
     } = this.props;
 
@@ -109,7 +104,7 @@ ReactRotatingText.propTypes = {
   cursor: React.PropTypes.bool,
   deletingInterval: React.PropTypes.number,
   emptyPause: React.PropTypes.number,
-  items: React.PropTypes.array,
+  items: React.PropTypes.array, // eslint-disable-line react/forbid-prop-types
   pause: React.PropTypes.number,
   typingInterval: React.PropTypes.number,
 };

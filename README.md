@@ -1,128 +1,43 @@
-# react-rotating-text
+# dev-react-component
+A minimalistic boilerplate for developing a react component as an NPM package:
 
-![effect showcase](http://i.imgur.com/AC5g7KD.gif)
+- No Babel
+- No Webpack
+- No testing
+- No linting
 
-A simple component to create a typewriter effect where strings are typed out and then deleted. Simply pass in an array of strings and the component will rotate through all of them.
+You get to decide how to bring those in yourself if you decide that you need it. All this boilerplate does is get you developing and publishing as fast as possible.
 
+This boilerplate includes the use of [react-build-lib](https://github.com/adrianmcli/react-build-lib) in order to generate CommonJS modules that you can publish and share. Other standalone modules like UMD are not supported yet (see below).
 
-## Demo & Examples
+# How to use
 
-Live demo: [adrianmcli.github.io/react-rotating-text](http://adrianmcli.github.io/react-rotating-text/)
+1. Clone this repo into a folder of your choice and `cd` into it:
 
-To build the examples locally, run:
+  ```
+  git clone https://github.com/adrianmcli/dev-react-component.git my-new-component
+  cd my-new-component
+  ```
 
-```
-npm install
-npm start
-```
+2. Delete the existing git history by running `rm -rf .git` and then run `git init` to start fresh.
+3. Run `yarn` or `npm install` to install the dependencies.
+4. Change the `name`, `version`, and `description` inside `package.json`.
+5. Start developing your component inside `src/index.js`.
+6. Run `npm publish` to publish your component.
 
-Then open [`localhost:8000`](http://localhost:8000) in a browser.
+# Developing Your Component
 
+Here you have two choices:
 
-## Installation
+1. Create your own "example" page that pulls in the component from `src/index.js` and load it up with React and all of its dependencies, or;
+2. **(RECOMMENDED)** Checkout the `storybook` branch of this repo and use [React Storybook](https://github.com/storybooks/react-storybook) with its built-in development environment to start building your component.
 
-The easiest way to use react-rotating-text is to install it from NPM and include it in your own React build process (using [Browserify](http://browserify.org), [Webpack](http://webpack.github.io/), [Brunch](http://brunch.io/), etc).
+The first option will probably require you to install a build tool (like [Webpack](https://webpack.github.io/) or [Brunch](http://brunch.io/) and setup all the dependencies you require to have a simple dev server capable of building a react app.
 
-You can also use the standalone build by including `dist/react-rotating-text.js` in your page. If you use this, make sure you have already included React, and it is available as a global variable.
+The second option is much more hands off, but many people like to build their own dev environment, especially if there are specific things they want to showcase. Since this is a minimalistic boilerplate, I have left the option up to you.
 
-```
-npm install react-rotating-text --save
-```
+# Warning
 
+This boilerplate only produces a transpiled CommonJS version of the component in a `lib` folder with `babel-cli`. This should be sufficient if users of your package have a Webpack build step to compile their react app.
 
-## Usage
-
-Simply require the component and then pass in an array of strings into the `items` prop:
-
-```jsx
-var ReactRotatingText = require('react-rotating-text');
-
-<ReactRotatingText items={['first', 'second', 'third']} />
-```
-
-In order to have a blinking cursor, you'll need to apply some CSS to the `react-rotating-text-cursor` class:
-
-```css
-.react-rotating-text-cursor {
-  animation: blinking-cursor 0.8s cubic-bezier(0.68, 0.01, 0.01, 0.99) 0s infinite;
-}
-
-@keyframes blinking-cursor {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-```
-
-Don't forget to put in vendor prefixes should you need them. A full example is available in `example/dist/ReactRotatingText.css`.
-
-### Properties
-
-**items (*array*)**  
-*(default: ['first', 'second', 'third'])*  
-The array of strings to be cycled through.
-
-**color (*string*)**  
-*(default: 'inherit')*  
-This specifies the color of the text.
-
-**cursor (*boolean*)**  
-*(default: true)*  
-If set to true, it will display the cursor after the text.
-
-**pause (*integer*)**  
-*(default: 1500)*  
-The number of milliseconds to pause after the text has just finished being typed out.
-
-**emptyPause (*integer*)**  
-*(default: 1000)*  
-The number of milliseconds to pause while no text is being displayed (i.e. after deleting has just finished).
-
-**typingInterval (*integer*)**  
-*(default: 50)*  
-The number of milliseconds between each typing action.
-
-**deletingInterval (*integer*)**  
-*(default: 50)*  
-The number of milliseconds between each deleting action.
-
-### Notes
-
-Enhancements and pull requests are welcomed.
-
-
-## Development (`src`, `lib` and the build process)
-
-**NOTE:** The source code for the component is in `src`. A transpiled CommonJS version (generated with Babel) is available in `lib` for use with node.js, browserify and webpack. A UMD bundle is also built to `dist`, which can be included without the need for any build system.
-
-To build, watch and serve the examples (which will also watch the component source), run `npm start`. If you just want to watch changes to `src` and rebuild `lib`, run `npm run watch` (this is useful if you are working with `npm link`).
-
-## License
-
-The MIT License (MIT)
-
-Copyright (c) 2016 Adrian Li.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+UMD compilation may be added later or in a separate branch in order to support standalone usage in the future. See this [issue](https://github.com/adrianmcli/dev-react-component/issues/2) for more details.
