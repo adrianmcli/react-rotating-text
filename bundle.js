@@ -127,8 +127,13 @@ var ReactRotatingText = (function (_React$Component) {
       var _props2 = this.props;
       var color = _props2.color;
       var cursor = _props2.cursor;
+      var deletingInterval = _props2.deletingInterval;
+      var emptyPause = _props2.emptyPause;
+      var items = _props2.items;
+      var pause = _props2.pause;
+      var typingInterval = _props2.typingInterval;
 
-      var other = _objectWithoutProperties(_props2, ['color', 'cursor']);
+      var other = _objectWithoutProperties(_props2, ['color', 'cursor', 'deletingInterval', 'emptyPause', 'items', 'pause', 'typingInterval']);
 
       return React.createElement(
         'span',
