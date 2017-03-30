@@ -84,6 +84,10 @@ The number of milliseconds to pause after the text has just finished being typed
 *(default: 1000)*  
 The number of milliseconds to pause while no text is being displayed (i.e. after deleting has just finished).
 
+**eraseMode (*string*)**  
+*(default: 'erase')*
+This specifies the erasing mode. May be set to "erase" or "overwrite".
+
 **typingInterval (*integer*)**  
 *(default: 50)*  
 The number of milliseconds between each typing action.

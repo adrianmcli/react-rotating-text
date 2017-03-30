@@ -7,6 +7,7 @@ class ReactRotatingText extends React.Component {
     this.state = {
       index: 0,
       output: '',
+      substrLength: 0,
     };
     this.timeouts = [];
   }
@@ -64,22 +65,47 @@ class ReactRotatingText extends React.Component {
     }
   };
 
+  _overwrite(text, callback) {
+    const { output, substrLength } = this.state;
+    const { deletingInterval } = this.props;
+    const loopingFunc = this._overwrite.bind(this, text, callback);
+
+    this.setState({
+      output: text.substr(0, substrLength) + output.substr(substrLength),
+      substrLength: substrLength + 1,
+    });
+
+    if (text.length !== substrLength) {
+      this._loop(loopingFunc, deletingInterval);
+    } else {
+      this.setState({
+        output: text,
+        substrLength: 0,
+      });
+      callback();
+    }
+  };
+
   _animate() {
     const { index } = this.state;
-    const { items, pause, emptyPause } = this.props;
+    const { items, pause, emptyPause, eraseMode } = this.props;
     const type = this._type;
     const erase = this._erase;
+    const overwrite = this._overwrite;
     const loopingFunc = this._animate.bind(this);
+    const nextIndex = index === items.length - 1 ? 0 : index + 1;
 
     const nextWord = () => {
-      this.setState({
-        index: index === items.length - 1 ? 0 : index + 1
-      });
+      this.setState({index: nextIndex});
       this._loop(loopingFunc, emptyPause);
     };
 
     type.bind(this)(items[index], () => {
-      this._loop(erase.bind(this, nextWord), pause);
+      if (eraseMode === 'overwrite') {
+        this._loop(overwrite.bind(this, items[nextIndex], nextWord), pause);
+      } else {
+        this._loop(erase.bind(this, nextWord), pause);
+      }
     });
   };
 
@@ -87,10 +113,11 @@ class ReactRotatingText extends React.Component {
     const {
       color,
       cursor,
-      deletingInterval, 
+      deletingInterval,
       emptyPause,
       items,
       pause,
+      eraseMode,
       typingInterval,
       ...other
     } = this.props;
@@ -109,6 +136,7 @@ ReactRotatingText.propTypes = {
   cursor: React.PropTypes.bool,
   deletingInterval: React.PropTypes.number,
   emptyPause: React.PropTypes.number,
+  eraseMode: React.PropTypes.string,
   items: React.PropTypes.array,
   pause: React.PropTypes.number,
   typingInterval: React.PropTypes.number,
@@ -119,6 +147,7 @@ ReactRotatingText.defaultProps = {
   cursor: true,
   deletingInterval: 50,
   emptyPause: 1000,
+  eraseMode: 'erase',
   items: ['first', 'second', 'third'],
   pause: 1500,
   typingInterval: 50,
