@@ -1,4 +1,5 @@
 var React = require('react');
+var PropTypes = require('prop-types');
 
 class ReactRotatingText extends React.Component {
 
@@ -132,14 +133,14 @@ class ReactRotatingText extends React.Component {
 }
 
 ReactRotatingText.propTypes = {
-  color: React.PropTypes.string,
-  cursor: React.PropTypes.bool,
-  deletingInterval: React.PropTypes.number,
-  emptyPause: React.PropTypes.number,
-  eraseMode: React.PropTypes.string,
-  items: React.PropTypes.array,
-  pause: React.PropTypes.number,
-  typingInterval: React.PropTypes.number,
+  color: PropTypes.string,
+  cursor: PropTypes.bool,
+  deletingInterval: PropTypes.number,
+  emptyPause: PropTypes.number,
+  eraseMode: PropTypes.string,
+  items: PropTypes.array,
+  pause: PropTypes.number,
+  typingInterval: PropTypes.number,
 };
 
 ReactRotatingText.defaultProps = {
