@@ -5,17 +5,13 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactRotatingText = require('react-rotating-text');
 
-var App = React.createClass({
-	displayName: 'App',
-
-	render: function render() {
-		return React.createElement(
-			'div',
-			{ className: 'display-text' },
-			React.createElement(ReactRotatingText, null)
-		);
-	}
-});
+var App = function App() {
+  return React.createElement(
+    'div',
+    { className: 'display-text' },
+    React.createElement(ReactRotatingText, null)
+  );
+};
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
 
