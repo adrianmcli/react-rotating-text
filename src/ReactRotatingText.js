@@ -1,7 +1,7 @@
 var React = require('react');
 var PropTypes = require('prop-types');
 
-class ReactRotatingText extends React.Component {
+class ReactRotatingText extends React.PureComponent {
 
   constructor(props) {
     super(props);
