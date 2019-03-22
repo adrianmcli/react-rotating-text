@@ -95,7 +95,7 @@ class ReactRotatingText extends React.Component {
     const erase = this._erase;
     const overwrite = this._overwrite;
     const loopingFunc = this._animate.bind(this);
-    var nextIndex;
+    let nextIndex;
     if (random) {
       nextIndex = Math.floor(Math.random() * Math.floor(items.length));
     } else {
