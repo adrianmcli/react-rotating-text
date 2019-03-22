@@ -5,8 +5,9 @@ class ReactRotatingText extends React.Component {
 
   constructor(props) {
     super(props);
+    const { items, random } = this.props;
     this.state = {
-      index: 0,
+      index: random ? Math.floor(Math.random() * Math.floor(items.length)) : 0,
       output: '',
       substrLength: 0,
     };
@@ -89,12 +90,17 @@ class ReactRotatingText extends React.Component {
 
   _animate() {
     const { index } = this.state;
-    const { items, pause, emptyPause, eraseMode } = this.props;
+    const { items, pause, emptyPause, eraseMode, random } = this.props;
     const type = this._type;
     const erase = this._erase;
     const overwrite = this._overwrite;
     const loopingFunc = this._animate.bind(this);
-    const nextIndex = index === items.length - 1 ? 0 : index + 1;
+    let nextIndex;
+    if (random) {
+      nextIndex = Math.floor(Math.random() * Math.floor(items.length));
+    } else {
+      nextIndex = index === items.length - 1 ? 0 : index + 1;
+    }
 
     const nextWord = () => {
       this.setState({index: nextIndex});
@@ -120,6 +126,7 @@ class ReactRotatingText extends React.Component {
       pause,
       eraseMode,
       typingInterval,
+      random,
       ...other
     } = this.props;
 
@@ -141,6 +148,7 @@ ReactRotatingText.propTypes = {
   items: PropTypes.array,
   pause: PropTypes.number,
   typingInterval: PropTypes.number,
+  random: PropTypes.bool
 };
 
 ReactRotatingText.defaultProps = {
@@ -149,9 +157,10 @@ ReactRotatingText.defaultProps = {
   deletingInterval: 50,
   emptyPause: 1000,
   eraseMode: 'erase',
-  items: ['first', 'second', 'third'],
+  items: ['first', 'second', 'third', 'fourth', 'fifth'],
   pause: 1500,
   typingInterval: 50,
+  random: false
 };
 
 export default ReactRotatingText;
