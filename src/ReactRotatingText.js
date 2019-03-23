@@ -1,5 +1,6 @@
 var React = require('react');
 var PropTypes = require('prop-types');
+var toArray = require('lodash.toarray');
 
 class ReactRotatingText extends React.Component {
 
@@ -38,12 +39,13 @@ class ReactRotatingText extends React.Component {
     const { output } = this.state;
     const { typingInterval } = this.props;
     const loopingFunc = this._type.bind(this, text, callback);
+    const word = toArray(text)
 
     // set the string one character longer
-    this.setState({output: text.substr(0, output.length + 1)});
+    this.setState({output: word.slice(0, toArray(output).length + 1).join('')});
 
     // if we're still not done, recursively loop again
-    if (output.length < text.length) {
+    if (output.length < word.length) {
       this._loop(loopingFunc, typingInterval);
     } else {
       callback();
@@ -54,12 +56,13 @@ class ReactRotatingText extends React.Component {
     const { output } = this.state;
     const { deletingInterval } = this.props;
     const loopingFunc = this._erase.bind(this, callback);
+    const word = toArray(output)
 
     // set the string one character shorter
-    this.setState({output: output.substr(0, output.length - 1)});
+    this.setState({output: word.slice(0, word.length - 1).join('')});
 
     // if we're still not done, recursively loop again
-    if (output.length !== 0) {
+    if (word.length !== 0) {
       this._loop(loopingFunc, deletingInterval);
     } else {
       callback();
@@ -70,13 +73,15 @@ class ReactRotatingText extends React.Component {
     const { output, substrLength } = this.state;
     const { deletingInterval } = this.props;
     const loopingFunc = this._overwrite.bind(this, text, callback);
+    const word = toArray(text)
+    const out = toArray(output)
 
     this.setState({
-      output: text.substr(0, substrLength) + output.substr(substrLength),
+      output: word.slice(0, substrLength).concat(out.slice(substrLength)),
       substrLength: substrLength + 1,
     });
 
-    if (text.length !== substrLength) {
+    if (word.length !== substrLength) {
       this._loop(loopingFunc, deletingInterval);
     } else {
       this.setState({
