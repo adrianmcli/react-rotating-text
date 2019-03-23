@@ -105,7 +105,11 @@ class ReactRotatingText extends React.Component {
     const nextWord = () => {
       this.setState({index: nextIndex});
       this._loop(loopingFunc, emptyPause);
-    };
+
+	  if (typeof this.props.onDeletingEnd == "function") {
+		  this.props.onDeletingEnd(this);
+	  }
+	};
 
     type.bind(this)(items[index], () => {
       if (eraseMode === 'overwrite') {
@@ -148,7 +152,8 @@ ReactRotatingText.propTypes = {
   items: PropTypes.array,
   pause: PropTypes.number,
   typingInterval: PropTypes.number,
-  random: PropTypes.bool
+  random: PropTypes.bool,
+  onDeletingEnd: PropTypes.func
 };
 
 ReactRotatingText.defaultProps = {
