@@ -47,7 +47,7 @@ class ReactRotatingText extends React.Component {
     if (output.length < text.length) {
       this._loop(loopingFunc, typingInterval);
     } else {
-	  if (typeof this.props.onTypingEnd == "function") {
+	  if (typeof this.props.onTypingEnd == 'function') {
 	  	this.props.onTypingEnd(this);
 	  }
       callback();
@@ -59,7 +59,7 @@ class ReactRotatingText extends React.Component {
     const { deletingInterval } = this.props;
     const loopingFunc = this._erase.bind(this, callback);
 
-    if (typeof this.props.onDeletingStart == "function") {
+    if (typeof this.props.onDeletingStart == 'function') {
 	  this.props.onDeletingStart(this);
     }
     // set the string one character shorter
@@ -69,7 +69,7 @@ class ReactRotatingText extends React.Component {
     if (output.length !== 0) {
       this._loop(loopingFunc, deletingInterval);
     } else {
-	  if (typeof this.props.onDeletingEnd == "function") {
+	  if (typeof this.props.onDeletingEnd == 'function') {
 		this.props.onDeletingEnd(this);
 	  }
       callback();
@@ -116,7 +116,7 @@ class ReactRotatingText extends React.Component {
       this._loop(loopingFunc, emptyPause);
 	};
 
-    if (typeof this.props.onTypingStart == "function") {
+    if (typeof this.props.onTypingStart == 'function') {
 	  this.props.onTypingStart(this);
     }
 
