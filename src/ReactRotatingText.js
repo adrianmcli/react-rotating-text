@@ -136,7 +136,8 @@ class ReactRotatingText extends React.Component {
     } = this.props;
 
     return (
-      <span style={{ color }} {...other}>
+      <span style={{ color }} {...other}
+            aria-label={ this.props.items[this.state.index] }>
         { this.state.output }
         { cursor ? <span className="react-rotating-text-cursor">|</span> : null }
       </span>
