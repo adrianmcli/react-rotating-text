@@ -49,6 +49,9 @@ class ReactRotatingText extends React.Component {
     if (output.length < word.length) {
       this._loop(loopingFunc, typingInterval);
     } else {
+	  if (typeof this.props.onTypingEnd == 'function') {
+	  	this.props.onTypingEnd();
+	  }
       callback();
     }
   }
@@ -59,6 +62,9 @@ class ReactRotatingText extends React.Component {
     const loopingFunc = this._erase.bind(this, callback);
     const word = toArray(output)
 
+    if (typeof this.props.onDeletingStart == 'function') {
+	  this.props.onDeletingStart();
+    }
     // set the string one character shorter
     this.setState({output: word.slice(0, word.length - 1).join('')});
 
@@ -66,6 +72,9 @@ class ReactRotatingText extends React.Component {
     if (word.length !== 0) {
       this._loop(loopingFunc, deletingInterval);
     } else {
+	  if (typeof this.props.onDeletingEnd == 'function') {
+		this.props.onDeletingEnd();
+	  }
       callback();
     }
   };
@@ -110,7 +119,11 @@ class ReactRotatingText extends React.Component {
     const nextWord = () => {
       this.setState({index: nextIndex});
       this._loop(loopingFunc, emptyPause);
-    };
+	};
+
+    if (typeof this.props.onTypingStart == 'function') {
+	  this.props.onTypingStart();
+    }
 
     type.bind(this)(items[index], () => {
       if (eraseMode === 'overwrite') {
@@ -153,7 +166,11 @@ ReactRotatingText.propTypes = {
   items: PropTypes.array,
   pause: PropTypes.number,
   typingInterval: PropTypes.number,
-  random: PropTypes.bool
+  random: PropTypes.bool,
+  onTypingStart: PropTypes.func,
+  onTypingEnd: PropTypes.func,
+  onDeletingStart: PropTypes.func,
+  onDeletingEnd: PropTypes.func,
 };
 
 ReactRotatingText.defaultProps = {
