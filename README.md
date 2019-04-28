@@ -96,6 +96,25 @@ The number of milliseconds between each typing action.
 *(default: 50)*  
 The number of milliseconds between each deleting action.
 
+### Events
+
+#### onTypingStart
+A callback function to call when typing starts for current item.
+
+#### onTypingEnd
+A callback function to call when typing ends for current item.
+
+#### onDeletingStart
+A callback function to call when deleting starts for current item.
+
+#### onDeletingEnd
+A callback function to call when deleting finishes for current item.
+
+Example:
+```
+<ReactRotatingText items={[`events`,`are`,`fun`]} onTypingStart={() => console.log(`Typing Started`)} />
+```
+
 ### Notes
 
 Enhancements and pull requests are welcomed.
