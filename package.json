@@ -12,6 +12,7 @@
   "bugs": {
     "url": "https://github.com/adrianmc/react-rotating-text/issues"
   },
+  "license": "MIT",
   "dependencies": {
     "classnames": "^2.1.2",
     "lodash.toarray": "^4.4.0",
