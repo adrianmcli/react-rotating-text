@@ -11,6 +11,7 @@ class ReactRotatingText extends React.Component {
       index: random ? Math.floor(Math.random() * Math.floor(items.length)) : 0,
       output: '',
       substrLength: 0,
+      count: 0
     };
     this.timeouts = [];
   }
@@ -24,6 +25,7 @@ class ReactRotatingText extends React.Component {
   }
 
   _loop(loopingFunc, pause) {
+		if(this.state.count == this.props.count) return;
     // save the timeouts so we can stop on unmount
     const timeout = setTimeout(loopingFunc, pause);
     this.timeouts.push(timeout);
@@ -48,9 +50,21 @@ class ReactRotatingText extends React.Component {
     // if we're still not done, recursively loop again
     if (output.length < word.length) {
       this._loop(loopingFunc, typingInterval);
-    } else {
+		} 
+		else {
+			this.setState({
+				count: this.state.count + 1
+			});
+			if(this.props.count){
+				if(this.props.count == this.state.count){
+					this.timeouts.map(x => clearTimeout(x));
+					this.timeouts = [];
+					console.log("done");
+				}
+			}
 	  if (typeof this.props.onTypingEnd == 'function') {
-	  	this.props.onTypingEnd();
+			this.props.onTypingEnd();
+		
 	  }
       callback();
     }
@@ -150,7 +164,7 @@ class ReactRotatingText extends React.Component {
 
     return (
       <span style={{ color }} {...other}
-            aria-label={ this.props.items[this.state.index] }>
+	    aria-label={ this.props.items[this.state.index] }>>
         { this.state.output }
         { cursor ? <span className="react-rotating-text-cursor">|</span> : null }
       </span>
