@@ -1,5 +1,12 @@
 .react-rotating-text-cursor {
   animation: blinking-cursor 0.8s cubic-bezier(0.68, 0.01, 0.01, 0.99) 0s infinite;
+  height: 50px;
+  width: 2px;
+  display: inline-block;
+  background: grey;
+  position: relative;
+  top: 8px;
+  left: 5px;
 }
 
 @-moz-keyframes blinking-cursor {
